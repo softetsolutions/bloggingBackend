@@ -44,7 +44,19 @@ export const createPost = async (req, res) => {
 
 export const getAllPosts = async (req, res) => {
     try{
-        const query = await pool.query('SELECT * FROM posts');
+    const query = await pool.query(`
+      SELECT 
+        posts.id,
+        posts.title,
+        posts.description,
+        posts.image_url,
+        posts.created_at,
+        users.fname,
+        users.lname
+      FROM posts
+      JOIN users ON posts.userId = users.id
+      ORDER BY posts.created_at DESC;
+    `);
         if (query.rowCount === 0) {
             return res.status(404).json({ error: "No posts found" });
         }
