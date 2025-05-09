@@ -38,7 +38,8 @@ export const login = async (req, res) => {
         }
         const tokenData = {
             id: user.id,
-            email: user.email
+            email: user.email,
+            role: user.role,
         };
         const authToken = jsonwebtoken.sign(tokenData, process.env.JWT_KEY, {
             expiresIn: `6h`,
