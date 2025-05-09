@@ -6,6 +6,7 @@ const postTable = async () => {
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
+            image_url TEXT,
             userId INT NOT NULL,
             FOREIGN KEY (userId) REFERENCES users(id),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

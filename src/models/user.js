@@ -9,6 +9,7 @@ const userTable = async () => {
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         phone VARCHAR(100),
+        role VARCHAR(100) DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `;
