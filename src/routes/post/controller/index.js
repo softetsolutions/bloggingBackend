@@ -1,6 +1,4 @@
 import { pool } from '../../../config/database.js';
-import cloudinary from '../../../config/cloudinary.js';
-import fs from 'fs';
 
 export const createPost = async (req, res) => {
     try{
@@ -18,18 +16,8 @@ export const createPost = async (req, res) => {
 
         let imageUrl = null;
         if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                folder: 'blog_images'
-            });
-            console.log("Cloudinary upload result:", result);
-
-            imageUrl = result.secure_url;
-
-            // Delete local file
-            fs.unlink(req.file.path, err => {
-                if (err) console.error("Error deleting file:", err);
-                else console.log("Local file deleted:", req.file.path);
-            });
+            const filename = req.file.filename;
+            imageUrl = `/uploads/${filename}`; 
         }
 
         const query = `INSERT INTO posts (title, description, userId, image_url) VALUES ($1, $2, $3, $4) RETURNING *`;
